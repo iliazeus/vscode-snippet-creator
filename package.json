@@ -2,12 +2,21 @@
 	"name": "snippet-creator",
 	"displayName": "Snippet Creator",
 	"description": "Create snippets from selection",
-	"version": "0.0.6",
+	"version": "1.1.0",
 	"icon": "img/icon.png",
+	"publisher": "wware",
 	"author": {
-		"name": "Vincent Kosciuszko",
-		"url": "https://github.com/VincentKos",
-		"email": "kosciuszkovincent@outlook.fr"
+		"name": "Andy Bulka",
+		"url": "https://github.com/abulka",
+		"email": "abulka@gmail.com"
+	},
+	"homepage": "https://github.com/abulka/vscode-snippet-creator",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/abulka/vscode-snippet-creator"
+	},
+	"bugs": {
+		"url": "https://github.com/abulka/vscode-snippet-creator/issues"
 	},
 	"keywords": [
 		"snippet",
@@ -45,14 +54,6 @@
 		"eslint": "^4.11.0",
 		"@types/node": "^8.10.25",
 		"@types/mocha": "^2.2.42"
-	},
-	"homepage": "https://github.com/VincentKos/vscode-snippet-creator",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/VincentKos/vscode-snippet-creator"
-	},
-	"bugs": {
-		"url": "https://github.com/VincentKos/vscode-snippet-creator/issues"
-	},
-	"publisher": "vincentkos"
+	}
+
 }

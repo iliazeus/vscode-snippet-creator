@@ -1,7 +1,13 @@
 # Change Log
-All notable changes to the "snippet-creator" extension will be documented in this file.
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+### 1.1.0
+
+- Revert to javascript version (see v1.1.0 branch for last typescript version)
+- Change repo owners - the original VincentKos repository was accidentally deleted
+
+### 1.0.0
+- Refactoring to typescript
+- Fixing various unexpected behaviors
 
 ### 0.0.6
 
@@ -11,5 +17,4 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Better success announcement message
   
 ## 0.0.1 - 2019-01-02
-### Added
  - Initial release.

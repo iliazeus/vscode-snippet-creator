@@ -1,3 +1,5 @@
+const dedent = require('string-dedent');
+
 class Snippet {
 
     get name() {
@@ -43,7 +45,7 @@ class Snippet {
     /**
      * Pre-process snippet text if needed. Converts a snippet string in to
      * Array<string> if newlines are detected - makes for easier editing in the
-     * snippets JSON file.
+     * snippets JSON file. Dedents so unecessary leading tabs are removed.
      *
      * Note: Weirdly, this *used* to replace \t with \\t 
      *      code.replace(/\t/g, '\\t').split("\n");  // Wrong!
@@ -54,6 +56,7 @@ class Snippet {
      * @param {string} code snippet text
      */
     static buildBody(code) {
+        code = dedent(code)
         if (code.includes('\n'))
             return code.split("\n");
         else

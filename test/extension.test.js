@@ -23,12 +23,13 @@ suite("Extension Tests", function () {
 		assert.equal(-1, [1, 2, 3].indexOf(0));
 	});
 
-	test('leave tabs alone', () => {
+	test('leave tabs alone, but dedent ok', () => {
 		// Ensure Snippet.buildBody(code) is no longer replacing \t with \\t
 		let snippet = new Snippet()
 		let snippetText = "\thi"
+		let expected = "hi"
 		snippet.body = snippetText
-		assert.equal(snippet.body, snippetText)
+		assert.equal(snippet.body, expected)
 	});
 
 	test('snippets converted to arrays of strings if multiline', () => {
@@ -38,8 +39,20 @@ suite("Extension Tests", function () {
 			"a",
 			"b",
 			"\tc",
-			"d",
-			""
+			"d"
+		]
+		snippet.body = snippetText
+		assert.deepEqual(snippet.body, expectedArray)
+	});
+
+	test('snippets dedented - leading tabs removed but other tabs preserved', () => {
+		let snippet = new Snippet()
+		let snippetText = "\ta\n\tb\n\t\tc\n\td\n"
+		let expectedArray = [
+			"a",
+			"b",
+			"\tc",
+			"d"
 		]
 		snippet.body = snippetText
 		assert.deepEqual(snippet.body, expectedArray)

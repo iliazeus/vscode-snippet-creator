@@ -2,8 +2,9 @@
 
 ### 1.1.1
 
-- Tab characters in snippets now properly created
 - Improved prompt messages
+- Tab characters in snippets now properly created
+- Dedent of snippets, reducing the amount of unecessary leading tabs
 
 ### 1.1.0
 

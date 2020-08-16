@@ -24,18 +24,20 @@ function activate(context) {
 
 		vscode.languages.getLanguages()
 			.then( vsCodeLangs => {
-				return vscode.window.showQuickPick( vsCodeLangs, { placeHolder: vscode.window.activeTextEditor.document.languageId });
+				let placeHolder = `Probably '${vscode.window.activeTextEditor.document.languageId}' (Use ▴ or ▾ to choose, do not just hit enter immediately)`
+				return vscode.window.showQuickPick( vsCodeLangs, { placeHolder: placeHolder });
 			})
 			.then( language => {
 				snippet.language = language;
-				return vscode.window.showInputBox({ prompt: 'Enter snippet name'});
+				// vscode.window.showInformationMessage(`Language chosen '${language}'`)
+				return vscode.window.showInputBox({ prompt: `Enter snippet name for '${language}.json' snippets file, spaces allowed)`});
 			})
 			.then( name => {
 				if(name === undefined) {
 					return;
 				}
 				snippet.name = name;
-				return vscode.window.showInputBox({ prompt: 'Enter snippet prefix' });
+				return vscode.window.showInputBox({ prompt: 'Enter snippet prefix (phrase that triggers)' });
 			})
 			.then( prefix => {
 				if (prefix === undefined) {

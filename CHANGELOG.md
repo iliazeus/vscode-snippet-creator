@@ -1,5 +1,10 @@
 # Change Log
 
+### 1.1.1
+
+- Tab characters in snippets now properly created
+- Improved prompt messages
+
 ### 1.1.0
 
 - Revert to javascript version (see v1.1.0 branch for last typescript version)

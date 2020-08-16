@@ -7,6 +7,7 @@
 
 // The module 'assert' provides assertion methods from node
 const assert = require('assert');
+const Snippet = require('../src/Snippet');
 
 // You can import and use all API from the 'vscode' module
 // as well as import your extension to test it
@@ -14,11 +15,34 @@ const assert = require('assert');
 // const myExtension = require('../extension');
 
 // Defines a Mocha test suite to group tests of similar kind together
-suite("Extension Tests", function() {
+suite("Extension Tests", function () {
 
 	// Defines a Mocha unit test
-	test("Something 1", function() {
+	test("Sample test", function () {
 		assert.equal(-1, [1, 2, 3].indexOf(5));
 		assert.equal(-1, [1, 2, 3].indexOf(0));
 	});
+
+	test('leave tabs alone', () => {
+		// Ensure Snippet.buildBody(code) is no longer replacing \t with \\t
+		let snippet = new Snippet()
+		let snippetText = "\thi"
+		snippet.body = snippetText
+		assert.equal(snippet.body, snippetText)
+	});
+
+	test('snippets converted to arrays of strings if multiline', () => {
+		let snippet = new Snippet()
+		let snippetText = "a\nb\n\tc\nd\n"
+		let expectedArray = [
+			"a",
+			"b",
+			"\tc",
+			"d",
+			""
+		]
+		snippet.body = snippetText
+		assert.deepEqual(snippet.body, expectedArray)
+	});
+
 });

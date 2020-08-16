@@ -40,8 +40,24 @@ class Snippet {
         this._language = language;
     } 
 
+    /**
+     * Pre-process snippet text if needed. Converts a snippet string in to
+     * Array<string> if newlines are detected - makes for easier editing in the
+     * snippets JSON file.
+     *
+     * Note: Weirdly, this *used* to replace \t with \\t 
+     *      code.replace(/\t/g, '\\t').split("\n");  // Wrong!
+     *
+     * which resulted in a horrible \\t being inserted instead of a proper \t
+     * tab character.
+     *
+     * @param {string} code snippet text
+     */
     static buildBody(code) {
-        return code.replace(/\t/g, '\\t').split("\n");
+        if (code.includes('\n'))
+            return code.split("\n");
+        else
+            return code
     }
 }
 

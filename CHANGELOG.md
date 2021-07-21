@@ -1,5 +1,9 @@
 # Change Log
 
+### 1.1.2
+
+- Improved prompt messages to indicate you can leave prompts blank, to auto re-use snippet name (saves typing)
+  
 ### 1.1.1
 
 - Improved prompt messages

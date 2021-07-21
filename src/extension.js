@@ -24,27 +24,27 @@ function activate(context) {
 
 		vscode.languages.getLanguages()
 			.then( vsCodeLangs => {
-				let placeHolder = `Probably '${vscode.window.activeTextEditor.document.languageId}' (Use ▴ or ▾ to choose, do not just hit enter immediately)`
+				let placeHolder = `Probably '${vscode.window.activeTextEditor.document.languageId}' (Use ▴ or ▾ to choose, or type language name - do not just hit enter immediately)`
 				return vscode.window.showQuickPick( vsCodeLangs, { placeHolder: placeHolder });
 			})
 			.then( language => {
 				snippet.language = language;
 				// vscode.window.showInformationMessage(`Language chosen '${language}'`)
-				return vscode.window.showInputBox({ prompt: `Enter snippet name for '${language}.json' snippets file, spaces allowed)`});
+				return vscode.window.showInputBox({ prompt: `Enter snippet name for inclusion in '${language}.json' snippets file, spaces allowed)`});
 			})
 			.then( name => {
 				if(name === undefined) {
 					return;
 				}
 				snippet.name = name;
-				return vscode.window.showInputBox({ prompt: 'Enter snippet prefix (phrase that triggers)' });
+				return vscode.window.showInputBox({ prompt: 'Enter snippet prefix (phrase that triggers) - leave blank to auto-use snippet name' });
 			})
 			.then( prefix => {
 				if (prefix === undefined) {
 					return;
 				}
 				snippet.prefix = prefix;
-				return vscode.window.showInputBox({ prompt: 'Enter snippet description' });
+				return vscode.window.showInputBox({ prompt: 'Enter snippet description - leave blank to auto-use snippet name' });
 			})
 			.then( description => {
 				if (description === undefined) {
@@ -63,7 +63,7 @@ function activate(context) {
 	context.subscriptions.push(disposable);
 }
 
-exports.activate = activate;
+// exports.activate = activate;
 
 function deactivate() {}
 

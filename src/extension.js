@@ -14,8 +14,8 @@ function activate(context) {
 		let selection = editor.selection;
 		var selectedText = editor.document.getText(selection);
 
-		if(!editor || selection.isEmpty) {
-			vscode.window.showWarningMessage('Cannot create snippet from empty string. Select some text first.'); 
+		if (!editor || selection.isEmpty) {
+			vscode.window.showWarningMessage('Cannot create snippet from empty string. Select some text first.');
 			return;
 		}
 
@@ -23,36 +23,36 @@ function activate(context) {
 		var snippetsManager = new SnippetsManager();
 
 		vscode.languages.getLanguages()
-			.then( vsCodeLangs => {
+			.then(vsCodeLangs => {
 				let placeHolder = `Probably '${vscode.window.activeTextEditor.document.languageId}' (Use ▴ or ▾ to choose, or type language name - do not just hit enter immediately)`
-				return vscode.window.showQuickPick( vsCodeLangs, { placeHolder: placeHolder });
+				return vscode.window.showQuickPick(vsCodeLangs, { placeHolder: placeHolder });
 			})
-			.then( language => {
+			.then(language => {
 				snippet.language = language;
 				// vscode.window.showInformationMessage(`Language chosen '${language}'`)
-				return vscode.window.showInputBox({ prompt: `Enter snippet name for inclusion in '${language}.json' snippets file, spaces allowed)`});
+				return vscode.window.showInputBox({ prompt: `Enter snippet name for inclusion in '${language}.json' snippets file, spaces allowed)` });
 			})
-			.then( name => {
-				if(name === undefined) {
+			.then(name => {
+				if (name === undefined) {
 					return;
 				}
 				snippet.name = name;
 				return vscode.window.showInputBox({ prompt: 'Enter snippet prefix (phrase that triggers) - leave blank to auto-use snippet name' });
 			})
-			.then( prefix => {
+			.then(prefix => {
 				if (prefix === undefined) {
 					return;
 				}
 				snippet.prefix = prefix;
 				return vscode.window.showInputBox({ prompt: 'Enter snippet description - leave blank to auto-use snippet name' });
 			})
-			.then( description => {
+			.then(description => {
 				if (description === undefined) {
 					return;
 				}
 				snippet.description = description;
 			})
-			.then( () => {
+			.then(() => {
 				snippet.body = selectedText;
 
 				snippetsManager.addSnippet(snippet, context);
@@ -65,7 +65,7 @@ function activate(context) {
 
 // exports.activate = activate;
 
-function deactivate() {}
+function deactivate() { }
 
 module.exports = {
 	activate,

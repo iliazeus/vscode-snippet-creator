@@ -40,7 +40,7 @@ class Snippet {
 
     set language(language) {
         this._language = language;
-    } 
+    }
 
     /**
      * Pre-process snippet text if needed. Converts a snippet string in to

@@ -1,5 +1,9 @@
 # Change Log
 
+### 1.1.3
+
+- fix: safer way to get snippet file location see issue #4. Should work in WSL now.
+  
 ### 1.1.2
 
 - Improved prompt messages to indicate you can leave prompts blank, to auto re-use snippet name (saves typing)

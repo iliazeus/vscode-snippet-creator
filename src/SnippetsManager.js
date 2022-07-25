@@ -1,34 +1,21 @@
 const vscode = require('vscode');
 const os = require('os');
 const fs = require('fs');
-const util = require('util');
+const path = require('path');
 const jsonc = require('jsonc-parser');
 
 class SnippetsManager {
 
-    addSnippet(snippet) {
-
-        let settingsPath;
-        let directorySeparator = '/';
-        let vscode_subdir = (vscode.env.appName.includes("Visual Studio Code - Insiders") ? 'Code - Insiders' : 'Code')
-
-        switch (os.type()) {
-            case 'Darwin':
-                settingsPath = process.env.HOME + `/Library/Application Support/${vscode_subdir}/User/`;
-                break;
-            case 'Linux':
-                settingsPath = process.env.HOME + `/.config/${vscode_subdir}/User/`;
-                break;
-            case 'Windows_NT':
-                settingsPath = process.env.APPDATA + `\\${vscode_subdir}\\User\\`;
-                directorySeparator = "\\";
-                break;
-            default:
-                settingsPath = process.env.HOME + `/.config/${vscode_subdir}/User/`;
-                break;
-        }
-
-        let snippetFile = settingsPath + util.format("snippets%s.json", directorySeparator + snippet.language);
+    addSnippet(snippet, context) {
+        /**
+         * The location of user snippets folder is different from
+         * the officially documented one when VSCode is in portable mode.
+         * It's the safest way to get the unpredictable path of user-data folder.
+         */
+        const snippetFile = path.join(
+            context.globalStorageUri.fsPath, '..', '..', 'snippets', snippet.language + '.json'
+        );    
+        // console.log('Location of snippets file for OS', os.type(), 'snippetFile: ' + snippetFile);
 
         if (!fs.existsSync(snippetFile)) {
             fs.openSync(snippetFile, "w+");

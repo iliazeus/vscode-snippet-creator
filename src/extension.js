@@ -55,7 +55,7 @@ function activate(context) {
 			.then( () => {
 				snippet.body = selectedText;
 
-				snippetsManager.addSnippet(snippet);
+				snippetsManager.addSnippet(snippet, context);
 			});
 
 	});

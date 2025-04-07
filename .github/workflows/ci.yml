@@ -1,0 +1,29 @@
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  test-and-pack:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+      - run: npm ci
+      - run: xvfb-run -a npm test
+        if: runner.os == 'Linux'
+      - run: npm test
+        if: runner.os != 'Linux'
+      - run: npx vsce pack --skip-license
+      - name: Upload .vsix
+        uses: actions/upload-artifact@v4
+        with:
+          name: extension
+          path: ./*.vsix
+          if-no-files-found: error
+          compression-level: 0
+          overwrite: true

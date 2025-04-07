@@ -22,7 +22,7 @@ class SnippetsManager {
             fs.writeFileSync(snippetFile, '{}');
         }
 
-        fs.readFile(snippetFile, (err, text) => {
+        fs.readFile(snippetFile, async (err, text) => {
             if (err) {
                 return;
             }
@@ -44,9 +44,19 @@ class SnippetsManager {
             }
 
             if (snippets[snippet.name] !== undefined) {
-                let proposedName = snippet.name
-                snippet.name = snippet.name + '_' + this.uuidv4()
-                vscode.window.showErrorMessage(`A snippet '${proposedName}' already exists - so adding a unique id: '${snippet.name}'`);
+                let option = await vscode.window.showWarningMessage(
+                    `A snippet '${snippet.name}' already exists.`,
+                    { modal: true },
+                    { title: "Overwrite" },
+                    { title: "Add Unique ID" },
+                    { title: "Abort", isCloseAffordance: true }
+                );
+
+                if (option.title == "Abort") return;
+                if (option.title == "Add Unique ID") {
+                    snippet.name = snippet.name + '_' + this.uuidv4();
+                    vscode.window.showInformationMessage(`Adding as '${snippet.name}'.`);
+                }
             }
 
             // if user has not entered anything for 'prefix' or 'description', auto set to some sensible values
